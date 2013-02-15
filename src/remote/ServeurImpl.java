@@ -12,17 +12,21 @@ public class ServeurImpl implements Serveur {
 	}
 
 	@Override
-	public void enregistrerClient(Client client) throws RemoteException {
+	public void connecterClient(Client client) throws RemoteException {
 		clients.add(client);
 		System.out.println("connexion de " + client.getPseudo());
 	}
 
 	@Override
+	public void deconnecterClient(Client client) throws RemoteException {
+		clients.remove(client);
+		System.out.println("deconnexion de " + client.getPseudo());
+	}
+
+	@Override
 	public void envoyerMessage(Client client, String message) throws RemoteException {
 		for (Client c : clients) {
-			if (!c.equals(client)) {
-				c.afficherMessage(client.getPseudo(), message);
-			}
+			c.afficherMessage(client.getPseudo(), message);
 		}
 	}
 }

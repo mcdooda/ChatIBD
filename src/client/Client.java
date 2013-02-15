@@ -3,6 +3,8 @@ package client;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.rmi.ConnectException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -10,35 +12,35 @@ import remote.*;
 
 public class Client {
 
+	private static remote.Client client;
+
 	public static void main(String[] args) {
-		String host = "localhost";
-		if (args.length > 0) {
-			host = args[0];
-		}
-		System.out.println("Serveur : " + host);
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-			System.out.print("Pseudo : ");
-			String pseudo = br.readLine();
+		java.awt.EventQueue.invokeLater(new Runnable() {
 
-			Registry registry = LocateRegistry.getRegistry(host, 18554);
-			remote.Serveur serveur = (remote.Serveur) registry.lookup("Serveur");
-
-			ClientImpl clientImpl = new ClientImpl(pseudo);
-			remote.Client client = (remote.Client) UnicastRemoteObject.exportObject(clientImpl, 0);
-			serveur.enregistrerClient(client);
-
-			System.out.println("Connecté au chat en tant que " + pseudo);
-			System.out.println("--------------------------------------");
-
-			while (true) {
-				String line = br.readLine();
-				serveur.envoyerMessage(client, line);
+			@Override
+			public void run() {
+				new FenetreConnexion().setVisible(true);
 			}
-		} catch (ConnectException ex) {
-			System.out.println("Impossible de se connecter au serveur " + host);
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
+		});
 	}
+
+	public static void connexion(String pseudo, String hote, int port) throws RemoteException, NotBoundException {
+		Registry registry = LocateRegistry.getRegistry(hote, port);
+		remote.Serveur serveur = (remote.Serveur) registry.lookup("Serveur");
+		
+		FenetreMessages fenetreMessages = new FenetreMessages();
+		fenetreMessages.setVisible(true);
+		ClientImpl clientImpl = new ClientImpl(pseudo, fenetreMessages);
+		client = (remote.Client) UnicastRemoteObject.exportObject(clientImpl, 0);
+		client.connecter(serveur);
+	}
+	
+	public static void deconnexion() throws RemoteException {
+		client.deconnecter();
+	}
+	
+	public static void envoyerMessage(String message) throws RemoteException {
+		client.envoyerMessage(message);
+	}
+
 }
