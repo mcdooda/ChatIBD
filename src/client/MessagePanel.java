@@ -43,28 +43,23 @@ public class MessagePanel extends javax.swing.JPanel {
         messagePanel = new javax.swing.JPanel();
         messageLabel = new javax.swing.JLabel();
 
-        pseudoPanel.setBackground(new java.awt.Color(255, 255, 255));
-
-        pseudoLabel.setText("Pseudo");
+        pseudoLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        pseudoLabel.setText("P :");
 
         javax.swing.GroupLayout pseudoPanelLayout = new javax.swing.GroupLayout(pseudoPanel);
         pseudoPanel.setLayout(pseudoPanelLayout);
         pseudoPanelLayout.setHorizontalGroup(
             pseudoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pseudoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pseudoLabel)
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pseudoLabel))
         );
         pseudoPanelLayout.setVerticalGroup(
             pseudoPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pseudoPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(pseudoLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pseudoLabel))
         );
-
-        messagePanel.setBackground(new java.awt.Color(255, 255, 255));
 
         messageLabel.setText("Message");
 
@@ -72,17 +67,13 @@ public class MessagePanel extends javax.swing.JPanel {
         messagePanel.setLayout(messagePanelLayout);
         messagePanelLayout.setHorizontalGroup(
             messagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(messagePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(messageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(messageLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 647, Short.MAX_VALUE)
         );
         messagePanelLayout.setVerticalGroup(
             messagePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(messagePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(messageLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(messageLabel))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -96,8 +87,8 @@ public class MessagePanel extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pseudoPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(messagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pseudoPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables
