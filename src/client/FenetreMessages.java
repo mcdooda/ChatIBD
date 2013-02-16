@@ -5,12 +5,14 @@
  */
 package client;
 
+import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.awt.Point;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.GroupLayout;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -40,12 +42,19 @@ public class FenetreMessages extends javax.swing.JFrame {
 	}
 
 	public void afficherMessage(String pseudo, String message) {
-		System.out.println(pseudo + " : " + message);
 		MessagePanel messagePanel = new MessagePanel();
 		messagePanel.setPseudo(pseudo + " :");
 		messagePanel.setMessage(message);
 		horizontalGroup.addComponent(messagePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE);
 		sequentialGroup.addComponent(messagePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE);
+		int largeur = messagesPanel.getPreferredSize().width;
+		int hauteur = 0;
+		for (Component c : messagesPanel.getComponents()) {
+			hauteur += c.getPreferredSize().height;
+		}
+		hauteur += messagePanel.getPreferredSize().height;
+		messagesPanel.setPreferredSize(new Dimension(largeur, hauteur));
+		chatScrollPane.getViewport().setViewPosition(new Point(0, hauteur));
 	}
 
 	/**
@@ -138,7 +147,8 @@ public class FenetreMessages extends javax.swing.JFrame {
 			try {
 				Client.envoyerMessage(message);
 			} catch (RemoteException ex) {
-				Logger.getLogger(FenetreMessages.class.getName()).log(Level.SEVERE, null, ex);
+				JOptionPane.showMessageDialog(this, "Une erreur de communication avec le serveur est survenue.");
+				System.exit(1);
 			}
 		}
 	}//GEN-LAST:event_messageTextFieldActionPerformed

@@ -1,5 +1,6 @@
 package client;
 
+import java.rmi.ConnectException;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -21,7 +22,7 @@ public class Client {
 		});
 	}
 
-	public static void connexion(String pseudo, String hote, int port) throws RemoteException, NotBoundException {
+	public static void connexion(String pseudo, String hote, int port) throws RemoteException, NotBoundException, ConnectException {
 		Registry registry = LocateRegistry.getRegistry(hote, port);
 		remote.Serveur serveur = (remote.Serveur) registry.lookup("Serveur");
 		
